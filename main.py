@@ -9,12 +9,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Initialize Kraken API
-api = krakenex.API(os.getenv("API_KEY"), os.getenv("PRIVATE_KEY"))  # Replace with your actual API keys
+api = krakenex.API(os.getenv("API_KEY"), os.getenv("PRIVATE_KEY"))  
 kraken = KrakenAPI(api)
 
 # Trading parameters
-PAIR = 'XXBTZUSD'  # Example pair: Bitcoin to USD
-TRADE_AMOUNT = 0.001  # Amount to trade (e.g., 0.001 BTC)
+PAIR = 'XXETHUSD'  # Ethereum to USD
+TRADE_AMOUNT = 0.001  # Amount to trade (0.001 ETH)
 TIMEFRAME = 1  # Timeframe in minutes for OHLC data
 SHORT_MA_PERIOD = 5  # Short moving average period
 LONG_MA_PERIOD = 20  # Long moving average period
