@@ -1,2 +1,2 @@
-# Crypto-Trading
-Trying my hand at creating a crypto trading bot 😵
+# Stock and Crypto Day Trading
+All my lil trading escapades 😵
