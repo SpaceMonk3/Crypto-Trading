@@ -1,0 +1,33 @@
+//@version=6
+indicator("Position Size Calculator - Lines + Bars", overlay=true)
+
+// === USER INPUTS ===
+riskDollars = input.float(100, title="Risk ($)", minval=0)
+entryPrice = input.float(127.57, title="Entry Price")
+stopLoss = input.float(127.07, title="Stop Loss Price")
+takeProfit = input.float(129.07, title="Take Profit Price")
+
+// === CALCULATIONS ===
+riskPerUnit = math.abs(entryPrice - stopLoss)
+quantity = riskDollars / riskPerUnit
+potentialProfit = quantity * math.abs(takeProfit - entryPrice)
+riskRewardRatio = potentialProfit / riskDollars
+
+// === PLOTTING ENTRY, SL, TP LINES ===
+plot(entryPrice, title="Entry", color=color.gray, linewidth=2, style=plot.style_linebr)
+plot(stopLoss, title="Stop Loss", color=color.red, linewidth=2, style=plot.style_linebr)
+plot(takeProfit, title="Take Profit", color=color.green, linewidth=2, style=plot.style_linebr)
+
+// === VERTICAL BARS (STACKED BOXES) ===
+barRange = 30  // number of bars to project forward
+for i = 0 to barRange
+    // TP Bars
+    box.new(left=bar_index + i, right=bar_index + i + 1, top=math.max(entryPrice, takeProfit), bottom=math.min(entryPrice, takeProfit), bgcolor=color.new(color.green, 70), border_color=color.new(color.green, 0))
+    // SL Bars
+    box.new(left=bar_index + i, right=bar_index + i + 1, top=math.max(entryPrice, stopLoss), bottom=math.min(entryPrice, stopLoss), bgcolor=color.new(color.red, 70), border_color=color.new(color.red, 0))
+
+// === STATS LABEL ===
+var label infoLabel = na
+label.delete(infoLabel)
+infoText = "Risk: $" + str.tostring(riskDollars, "#.##") + "\nQty: " + str.tostring(quantity, "#.##") + "\nEntry: " + str.tostring(entryPrice) + "\nTP: " + str.tostring(takeProfit) + "\nSL: " + str.tostring(stopLoss) + "\nProfit: $" + str.tostring(potentialProfit, "#.##") + "\nRisk/Reward: " + str.tostring(riskRewardRatio, "#.##")
+infoLabel := label.new(bar_index + 1, high, infoText, style=label.style_label_left, color=color.gray, textcolor=color.white, size=size.small)
