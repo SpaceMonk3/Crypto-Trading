@@ -1,6 +1,3 @@
-# Stock and Crypto Day Trading
-All my lil trading escapades 😵
-
 # OCO Order simulation script for Robinhood
 cause they dont have it 😭 (use at your own risk)
 ## Running the script
